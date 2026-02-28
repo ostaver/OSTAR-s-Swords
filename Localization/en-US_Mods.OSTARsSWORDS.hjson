@@ -1237,7 +1237,12 @@ Items: {
 
 	TheNightmareAmalgamation: {
 		DisplayName: The Nightmare Amalgamation
-		Tooltip: ""
+		Tooltip:
+			'''
+			Right-click to activate the nightmare within.
+			For 10 seconds, the blade will unleash projectiles.
+			(30 second cooldown)
+			'''
 	}
 
 	TheStinger: {
@@ -1426,6 +1431,15 @@ Items: {
 			"Arena prime"
 			'''
 	}
+
+	SwordOfTheDivine: {
+		Tooltip:
+			'''
+			Makes your critical strikes randomly deal from 50% to 200% damage
+			"Arena prime"
+			'''
+		DisplayName: Sword Of The Divine
+	}
 }
 
 Buffs: {
@@ -1511,4 +1525,5 @@ Projectiles: {
 	TrueTerrabladeProjectile.DisplayName: True Terrablade Projectile
 	Venom.DisplayName: Venom
 	VugarMutaterProjectile.DisplayName: Vugar Mutater Projectile
+	OldMansBladeHoldout.DisplayName: Old Mans Blade Holdout
 }

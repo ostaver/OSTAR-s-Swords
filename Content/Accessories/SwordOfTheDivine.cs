@@ -5,23 +5,21 @@ using OSTARsSWORDS.Content.GlobalNPCs;
 
 namespace OSTARsSWORDS.Content.Accessories;
 
-public class ReapersToll : ModItem
+public class SwordOfTheDivine : ModItem
 {
 	public override void SetDefaults()
 	{
 		Item.width = 100;
 		Item.height = 100;
-		Item.value = Item.sellPrice(gold: 27);
-		Item.rare = ItemRarityID.LightRed;
+		Item.value = Item.sellPrice(gold: 33);
+		Item.rare = ItemRarityID.Purple;
 		Item.accessory = true;
-		Item.expert = true;
 	}
 
 	public override void UpdateAccessory(Player player, bool hideVisual)
 	{
-		// Increases total attack speed by 15%
-		player.GetAttackSpeed(DamageClass.Melee) *= 1.15f;
-		player.GetModPlayer<GlobalPlayer>().slowReaper = true;
+		//Increases crit damage based on your crit chance
+		player.GetModPlayer<GlobalPlayer>().DivineCrit = true;
     }
 
 	public override void AddRecipes()

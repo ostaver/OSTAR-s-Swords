@@ -4,15 +4,13 @@ using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
 using OSTARsSWORDS.Content.Projectiles;
+using OSTARsSWORDS.Content.GlobalNPCs;
+using System.Collections.Generic;
 
 namespace OSTARsSWORDS.Content.Items.Swords;
 
 public class TheNightmareAmalgamation : ModItem
 {
-	public override void SetStaticDefaults()
-	{
-	}
-
 	public override void SetDefaults()
 	{
 		Item.width = 110;
@@ -33,12 +31,66 @@ public class TheNightmareAmalgamation : ModItem
 		Item.ResearchUnlockCount = 1;
 	}
 
+	public override bool AltFunctionUse(Player player) => true;
+
+	public override bool CanUseItem(Player player)
+	{
+		if (player.altFunctionUse == 2)
+		{
+			Item.useStyle = ItemUseStyleID.HoldUp;
+			Item.useTime = 30;
+			Item.useAnimation = 30;
+
+			var modPlayer = player.GetModPlayer<GlobalPlayer>();
+			if (modPlayer.nightmareAbilityCooldownTimer <= 0)
+			{
+				modPlayer.nightmareAbilityActive = true;
+				modPlayer.nightmareAbilityDurationTimer = 600; // 10 seconds
+				modPlayer.nightmareAbilityCooldownTimer = 1800; // 30 seconds
+				Terraria.Audio.SoundEngine.PlaySound(SoundID.Roar, player.position);
+
+				for (int i = 0; i < 20; i++)
+				{
+					Dust.NewDust(player.position, player.width, player.height, DustID.Shadowflame, 0f, 0f, 150, default(Color), 1.5f);
+				}
+
+				return true;
+			}
+			return false;
+		}
+		else
+		{
+			Item.useStyle = ItemUseStyleID.Swing;
+			Item.useTime = 20;
+			Item.useAnimation = 20;
+		}
+		return true;
+	}
+
+	public override void ModifyTooltips(List<TooltipLine> tooltips)
+	{
+		var modPlayer = Main.LocalPlayer.GetModPlayer<GlobalPlayer>();
+		
+		if (modPlayer.nightmareAbilityCooldownTimer > 0)
+		{
+			int seconds = (modPlayer.nightmareAbilityCooldownTimer / 60) + 1;
+			tooltips.Add(new TooltipLine(Mod, "Cooldown", $"Ability Cooldown: {seconds}s") { OverrideColor = Color.Red });
+		}
+		else
+		{
+			tooltips.Add(new TooltipLine(Mod, "Cooldown", "Ability Ready!") { OverrideColor = Color.LimeGreen });
+		}
+	}
+
 	public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
 	{
+		if (player.altFunctionUse == 2 || !player.GetModPlayer<GlobalPlayer>().nightmareAbilityActive)
+			return false;
+
 		for (int i = 0; i < 3; i++)
 		{
 			Vector2 perturbedSpeed = Utils.RotatedByRandom(new Vector2(velocity.X, velocity.Y), (double)MathHelper.ToRadians(12f));
-			Projectile.NewProjectile(source, position.X, position.Y, perturbedSpeed.X, perturbedSpeed.Y, ModContent.ProjectileType<Nightmare>(), damage, knockback, player.whoAmI, 0f, 0f, 0f);
+			Projectile.NewProjectile(source, position.X + i*10, position.Y+i*10, perturbedSpeed.X, perturbedSpeed.Y, ModContent.ProjectileType<Nightmare>(), damage, knockback, player.whoAmI, 0f, 0f, 0f);
 		}
 		return false;
 	}

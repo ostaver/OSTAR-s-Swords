@@ -2,7 +2,9 @@
 using Terraria;
 using Terraria.DataStructures;
 using Terraria.ID;
+using Terraria.Audio;
 using Terraria.ModLoader;
+using OSTARsSWORDS.Content.Items.Swords;
 
 namespace OSTARsSWORDS.Content.GlobalNPCs
 {
@@ -10,29 +12,64 @@ namespace OSTARsSWORDS.Content.GlobalNPCs
     {
         public bool eBlaze;
         public bool slowReaper;
+        public bool DivineCrit;
+        public bool nightmareAbilityActive;
+        public int nightmareAbilityCooldownTimer;
+        public int nightmareAbilityDurationTimer;
+
+        public override void ModifyHitNPC(NPC target, ref NPC.HitModifiers modifiers)
+        {
+            if (slowReaper && modifiers.DamageType == DamageClass.Melee)
+            {
+                modifiers.FlatBonusDamage += (int)(target.lifeMax / 1000);
+            }
+
+            if (DivineCrit)
+            {
+                modifiers.ModifyHitInfo += (ref NPC.HitInfo hitInfo) => {
+                    if (hitInfo.Crit)
+                    {
+                        hitInfo.Damage += (int)(hitInfo.Damage * Main.rand.NextFloat(0.5f, 2.0f));
+                    }
+                };
+            }
+        }
 
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
-            if(hit.DamageType == DamageClass.Melee && slowReaper == true)
+            if (hit.DamageType == DamageClass.Melee && slowReaper) // Reaper's Toll effect
             {
                 target.AddBuff(BuffID.Slow, 600);
-                NPC.HitInfo hitInfo = new()
-                {
-                    Damage = (int)(target.lifeMax / 1000),
-                    Knockback = 0f,
-                    HitDirection = 0,
-                    DamageType = DamageClass.Generic
-                };
-                target.StrikeNPC(hitInfo);
-                if(target.lifeMax > 10) 
+                
+                if (target.lifeMax > 10) 
                     target.lifeMax -= (int)target.lifeMax / 1000;
             }
         }
+
+        public override void PostUpdateMiscEffects()
+        {
+            if (nightmareAbilityDurationTimer > 0)
+            {
+                nightmareAbilityDurationTimer--;
+                if (nightmareAbilityDurationTimer == 0)
+                {
+                    nightmareAbilityActive = false;
+                }
+            }
+
+            if (nightmareAbilityCooldownTimer > 0)
+            {
+                nightmareAbilityCooldownTimer--;
+            }
+        }
+
+        // Triggers will now be handled inside the Item file instead of a keybind.
 
         public override void ResetEffects()
         {
             eBlaze = false;
             slowReaper = false;
+            DivineCrit = false;
         }
 
         public override void UpdateBadLifeRegen()

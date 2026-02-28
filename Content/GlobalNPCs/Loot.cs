@@ -228,9 +228,9 @@ public class Loot : GlobalNPC
             npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<SwordOfFlames>(), chanceDenominator: 150, minimumDropped: 1, maximumDropped: 1));
         }
 
-        if (npc.type == NPCID.MossHornet || npc.type == NPCID.Arapaima || npc.type == NPCID.FlyingSnake) //Dragon's Death
+        if (npc.type == NPCID.FlyingSnake) //Dragon's Death
         {
-            npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<DragonsDeath>(), chanceDenominator: 1000, minimumDropped: 1, maximumDropped: 1));
+            npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<DragonsDeath>(), chanceDenominator: 500, minimumDropped: 1, maximumDropped: 1));
         }
 
         if (npc.type == NPCID.Crab) //Ocean Roar

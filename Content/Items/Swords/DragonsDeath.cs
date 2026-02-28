@@ -6,10 +6,6 @@ namespace OSTARsSWORDS.Content.Items.Swords;
 
 public class DragonsDeath : ModItem
 {
-	public override void SetStaticDefaults()
-	{
-	}
-
 	public override void SetDefaults()
 	{
 		Item.width = 128;
