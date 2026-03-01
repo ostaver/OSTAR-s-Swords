@@ -1,6 +1,56 @@
 # This file will automatically update with entries for new content after a build and reload.
 
+Projectiles: {
+	Armageddon.DisplayName: Armageddon
+	BeamOfTheUniverse.DisplayName: Beam Of The Universe
+	BeliarLightning.DisplayName: Beliar Lightning
+	Corrupt.DisplayName: Corrupt
+	DoubleBladedLightsaberProjectile.DisplayName: Double Bladed Lightsaber Projectile
+	FlareCore.DisplayName: Flare Core
+	Frozen.DisplayName: Frozen
+	GreenSaw.DisplayName: Green Saw
+	GreenSOTUBeam.DisplayName: Green S O T U Beam
+	HarpyFeather.DisplayName: Harpy Feather
+	HumanBuzzSawProjectile.DisplayName: Human Buzz Saw Projectile
+	InvisibleProj.DisplayName: Invisible Proj
+	MechanicalSoulProjectile.DisplayName: Mechanical Soul
+	MoltenShardProjectile.DisplayName: Molten Shard Projectile
+	NightlightProjectile.DisplayName: Nightlight Projectile
+	Nightmare.DisplayName: Nightmare
+	Poison.DisplayName: Poison
+	SaphiraProj.DisplayName: Saphira Proj
+	ScarletFlareBolt.DisplayName: Scarlet Flare Bolt
+	SOTM.DisplayName: S O T M
+	SOTU7.DisplayName: S O T U7
+	SOTU8.DisplayName: S O T U8
+	SOTUProjectile1.DisplayName: S O T U Projectile1
+	SOTUProjectile2.DisplayName: S O T U Projectile2
+	SOTUProjectile3.DisplayName: S O T U Projectile3
+	SOTUV4Projectile.DisplayName: S O T U V4 Projectile
+	SOTUV5Projectile.DisplayName: S O T U V5 Projectile
+	SOTUV6Projectile.DisplayName: S O T U V6 Projectile
+	SOTUV9Projectile.DisplayName: S O T U V9 Projectile
+	Soul1.DisplayName: Soul1
+	Soul2.DisplayName: Soul2
+	Soul3.DisplayName: Soul3
+	Tier2CProjectile.DisplayName: Tier2 C Projectile
+	TrueTerrabladeProjectile.DisplayName: True Terrablade Projectile
+	Venom.DisplayName: Venom
+	VugarMutaterProjectile.DisplayName: Vugar Mutater Projectile
+	OldMansBladeHoldout.DisplayName: Old Mans Blade Holdout
+	AbyssalRune.DisplayName: Abyssal Rune
+}
+
 Items: {
+	AbyssalRuneBlade: {
+		DisplayName: Abyssal Rune Blade
+		Tooltip:
+			'''
+			Fires abyssal runes that seek out enemies
+			Shadowflame lingers on targets
+			'''
+	}
+
 	AllWoodSword: {
 		DisplayName: All Wood Sword
 		Tooltip: Made from the finest wood. Does 1% of the target's max health as damage
@@ -1487,43 +1537,3 @@ Tiles: {
 }
 
 WorldGen.BlessedMessage: Your world has been blessed with Damascus!
-
-Projectiles: {
-	Armageddon.DisplayName: Armageddon
-	BeamOfTheUniverse.DisplayName: Beam Of The Universe
-	BeliarLightning.DisplayName: Beliar Lightning
-	Corrupt.DisplayName: Corrupt
-	DoubleBladedLightsaberProjectile.DisplayName: Double Bladed Lightsaber Projectile
-	FlareCore.DisplayName: Flare Core
-	Frozen.DisplayName: Frozen
-	GreenSaw.DisplayName: Green Saw
-	GreenSOTUBeam.DisplayName: Green S O T U Beam
-	HarpyFeather.DisplayName: Harpy Feather
-	HumanBuzzSawProjectile.DisplayName: Human Buzz Saw Projectile
-	InvisibleProj.DisplayName: Invisible Proj
-	MechanicalSoulProjectile.DisplayName: Mechanical Soul
-	MoltenShardProjectile.DisplayName: Molten Shard Projectile
-	NightlightProjectile.DisplayName: Nightlight Projectile
-	Nightmare.DisplayName: Nightmare
-	Poison.DisplayName: Poison
-	SaphiraProj.DisplayName: Saphira Proj
-	ScarletFlareBolt.DisplayName: Scarlet Flare Bolt
-	SOTM.DisplayName: S O T M
-	SOTU7.DisplayName: S O T U7
-	SOTU8.DisplayName: S O T U8
-	SOTUProjectile1.DisplayName: S O T U Projectile1
-	SOTUProjectile2.DisplayName: S O T U Projectile2
-	SOTUProjectile3.DisplayName: S O T U Projectile3
-	SOTUV4Projectile.DisplayName: S O T U V4 Projectile
-	SOTUV5Projectile.DisplayName: S O T U V5 Projectile
-	SOTUV6Projectile.DisplayName: S O T U V6 Projectile
-	SOTUV9Projectile.DisplayName: S O T U V9 Projectile
-	Soul1.DisplayName: Soul1
-	Soul2.DisplayName: Soul2
-	Soul3.DisplayName: Soul3
-	Tier2CProjectile.DisplayName: Tier2 C Projectile
-	TrueTerrabladeProjectile.DisplayName: True Terrablade Projectile
-	Venom.DisplayName: Venom
-	VugarMutaterProjectile.DisplayName: Vugar Mutater Projectile
-	OldMansBladeHoldout.DisplayName: Old Mans Blade Holdout
-}

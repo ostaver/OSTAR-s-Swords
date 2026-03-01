@@ -6,6 +6,7 @@ using Terraria.ModLoader;
 using OSTARsSWORDS.Content.Projectiles;
 using OSTARsSWORDS.Content.GlobalNPCs;
 using System.Collections.Generic;
+using Luminance.Core.Graphics;
 
 namespace OSTARsSWORDS.Content.Items.Swords;
 
@@ -40,6 +41,8 @@ public class TheNightmareAmalgamation : ModItem
 			Item.useStyle = ItemUseStyleID.HoldUp;
 			Item.useTime = 30;
 			Item.useAnimation = 30;
+			Item.noUseGraphic = true;
+			Item.noMelee = true;
 
 			var modPlayer = player.GetModPlayer<GlobalPlayer>();
 			if (modPlayer.nightmareAbilityCooldownTimer <= 0)
@@ -49,9 +52,12 @@ public class TheNightmareAmalgamation : ModItem
 				modPlayer.nightmareAbilityCooldownTimer = 1800; // 30 seconds
 				Terraria.Audio.SoundEngine.PlaySound(SoundID.Roar, player.position);
 
-				for (int i = 0; i < 20; i++)
+				ScreenShakeSystem.StartShake(10f, 1f, null, 1.5f);
+
+				for (int i = 0; i < 40; i++)
 				{
-					Dust.NewDust(player.position, player.width, player.height, DustID.Shadowflame, 0f, 0f, 150, default(Color), 1.5f);
+					Vector2 velocity = Main.rand.NextVector2Circular(10f, 10f);
+					Dust.NewDust(player.position, player.width, player.height, DustID.Shadowflame, velocity.X, velocity.Y, 150, default(Color), 2f);
 				}
 
 				return true;
@@ -63,6 +69,8 @@ public class TheNightmareAmalgamation : ModItem
 			Item.useStyle = ItemUseStyleID.Swing;
 			Item.useTime = 20;
 			Item.useAnimation = 20;
+			Item.noUseGraphic = false;
+			Item.noMelee = false;
 		}
 		return true;
 	}
