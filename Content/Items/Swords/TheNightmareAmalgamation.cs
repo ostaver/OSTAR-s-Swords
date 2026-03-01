@@ -7,6 +7,7 @@ using OSTARsSWORDS.Content.Projectiles;
 using OSTARsSWORDS.Content.GlobalNPCs;
 using System.Collections.Generic;
 using Luminance.Core.Graphics;
+using Terraria.Audio;
 
 namespace OSTARsSWORDS.Content.Items.Swords;
 
@@ -39,8 +40,8 @@ public class TheNightmareAmalgamation : ModItem
 		if (player.altFunctionUse == 2)
 		{
 			Item.useStyle = ItemUseStyleID.HoldUp;
-			Item.useTime = 30;
-			Item.useAnimation = 30;
+			Item.useTime = 1;
+			Item.useAnimation = 1;
 			Item.noUseGraphic = true;
 			Item.noMelee = true;
 
@@ -50,7 +51,7 @@ public class TheNightmareAmalgamation : ModItem
 				modPlayer.nightmareAbilityActive = true;
 				modPlayer.nightmareAbilityDurationTimer = 600; // 10 seconds
 				modPlayer.nightmareAbilityCooldownTimer = 1800; // 30 seconds
-				Terraria.Audio.SoundEngine.PlaySound(SoundID.Roar, player.position);
+				Terraria.Audio.SoundEngine.PlaySound(new Terraria.Audio.SoundStyle("OSTARsSWORDS/Content/Items/Swords/NightmareUnleash"), player.position);
 
 				ScreenShakeSystem.StartShake(10f, 1f, null, 1.5f);
 
@@ -87,7 +88,8 @@ public class TheNightmareAmalgamation : ModItem
 		else
 		{
 			tooltips.Add(new TooltipLine(Mod, "Cooldown", "Ability Ready!") { OverrideColor = Color.LimeGreen });
-		}
+			SoundEngine.PlaySound(new SoundStyle("OSTARsSWORDS/Content/Items/Swords/NightmareReady"), Main.LocalPlayer.position);
+        }
 	}
 
 	public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)

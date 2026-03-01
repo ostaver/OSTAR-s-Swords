@@ -1,8 +1,10 @@
+using OSTARsSWORDS.Content.Accessories;
 using OSTARsSWORDS.Content.Items;
 using OSTARsSWORDS.Content.Items.Materials;
 using OSTARsSWORDS.Content.Items.Potions.SkoomaPotion;
 using OSTARsSWORDS.Content.Items.Swords;
 using Terraria;
+using Terraria.Audio;
 using Terraria.GameContent.ItemDropRules;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -276,6 +278,12 @@ public class Loot : GlobalNPC
         if (npc.type == NPCID.DungeonGuardian) //Halo of Horrors
         {
             npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<HaloOfHorrors>(), chanceDenominator: 1, minimumDropped: 1, maximumDropped: 1));
+        }
+
+        if(npc.type == NPCID.HallowBoss) //Sword of the Divine, Empress of Light
+        {
+            npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<SwordOfTheDivine>(), chanceDenominator: 1, minimumDropped: 1, maximumDropped: 1));
+            npc.DeathSound = new SoundStyle("OSTARsSWORDS/Sounds/EmpressFinish") { Volume = 1.2f };
         }
 
         //Biome Mimic Drops
