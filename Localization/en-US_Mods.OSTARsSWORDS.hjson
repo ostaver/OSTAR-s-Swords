@@ -39,6 +39,9 @@ Projectiles: {
 	VugarMutaterProjectile.DisplayName: Vugar Mutater Projectile
 	OldMansBladeHoldout.DisplayName: Old Mans Blade Holdout
 	AbyssalRune.DisplayName: Abyssal Rune
+	ChaosRuneShard.DisplayName: Chaos Rune Shard
+	EntropyNova.DisplayName: Entropy Nova
+	FitzProjectile.DisplayName: Fitz Projectile
 }
 
 Items: {
@@ -1489,6 +1492,16 @@ Items: {
 			"Arena prime"
 			'''
 		DisplayName: Sword Of The Divine
+	}
+
+	PajcheWarAxe: {
+		Tooltip: ""
+		DisplayName: Pajche War Axe
+	}
+
+	Fitz: {
+		Tooltip: ""
+		DisplayName: Fitz
 	}
 }
 

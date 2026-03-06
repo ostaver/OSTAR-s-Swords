@@ -51,7 +51,7 @@ public class TheNightmareAmalgamation : ModItem
 				modPlayer.nightmareAbilityActive = true;
 				modPlayer.nightmareAbilityDurationTimer = 600; // 10 seconds
 				modPlayer.nightmareAbilityCooldownTimer = 1800; // 30 seconds
-				Terraria.Audio.SoundEngine.PlaySound(new Terraria.Audio.SoundStyle("OSTARsSWORDS/Content/Items/Swords/NightmareUnleash"), player.position);
+				Terraria.Audio.SoundEngine.PlaySound(new Terraria.Audio.SoundStyle("OSTARsSWORDS/Content/Items/Swords/NightmareUnleash") {Volume = 1.5f, Pitch = 0.25f}, player.position);
 
 				ScreenShakeSystem.StartShake(10f, 1f, null, 1.5f);
 
@@ -88,7 +88,6 @@ public class TheNightmareAmalgamation : ModItem
 		else
 		{
 			tooltips.Add(new TooltipLine(Mod, "Cooldown", "Ability Ready!") { OverrideColor = Color.LimeGreen });
-			SoundEngine.PlaySound(new SoundStyle("OSTARsSWORDS/Content/Items/Swords/NightmareReady"), Main.LocalPlayer.position);
         }
 	}
 

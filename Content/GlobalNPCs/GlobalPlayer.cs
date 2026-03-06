@@ -58,6 +58,10 @@ namespace OSTARsSWORDS.Content.GlobalNPCs
             if (nightmareAbilityCooldownTimer > 0)
             {
                 nightmareAbilityCooldownTimer--;
+                if (nightmareAbilityCooldownTimer == 0)
+                {
+                    Terraria.Audio.SoundEngine.PlaySound(new Terraria.Audio.SoundStyle("OSTARsSWORDS/Content/Items/Swords/NightmareReady") {Volume = 0.5f, Pitch = 0.5f}, Player.position);
+                }
             }
         }
 
