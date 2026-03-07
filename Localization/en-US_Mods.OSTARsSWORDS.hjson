@@ -42,6 +42,8 @@ Projectiles: {
 	ChaosRuneShard.DisplayName: Chaos Rune Shard
 	EntropyNova.DisplayName: Entropy Nova
 	FitzProjectile.DisplayName: Fitz Projectile
+	HellkiteHoldout.DisplayName: Hellkite Holdout
+	PajcheWarAxeHoldout.DisplayName: Pajche War Axe Holdout
 }
 
 Items: {
