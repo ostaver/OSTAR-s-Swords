@@ -1497,7 +1497,7 @@ Items: {
 	}
 
 	PajcheWarAxe: {
-		Tooltip: ""
+		Tooltip: Does bonus 4% target max health damage on hit. And 8% if charged
 		DisplayName: Pajche War Axe
 	}
 

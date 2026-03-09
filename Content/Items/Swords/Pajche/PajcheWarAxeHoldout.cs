@@ -46,7 +46,7 @@ namespace OSTARsSWORDS.Content.Items.Swords.Pajche
         public float ArmRotationOffsetBack = 0f;
         public virtual int FrameCount => 1;
         public int Frame = 0;
-        public Vector2 SpriteOrigin => new(-3, 124);
+        public Vector2 SpriteOrigin => new(-3, 90);
         public float FinalRotation => Projectile.rotation + RotationOffset;
         public SpriteEffects spriteEffects = SpriteEffects.None;
         public bool CanHit_Field = true;
@@ -117,6 +117,7 @@ namespace OSTARsSWORDS.Content.Items.Swords.Pajche
             Projectile.width = (int)Math.Max(HitboxSize.X, 1);
             Projectile.height = (int)Math.Max(HitboxSize.Y, 1);
             Projectile.friendly = true;
+            Projectile.scale = 1.5f;
             Projectile.tileCollide = false;
             Projectile.penetrate = -1;
             Projectile.noEnchantmentVisuals = true;
@@ -136,7 +137,7 @@ namespace OSTARsSWORDS.Content.Items.Swords.Pajche
         {
             CanHit_Field = false;
             Projectile.knockBack = 0;
-            Projectile.scale = 1;
+            Projectile.scale = 1.5f;
             Projectile.ai[1] = -1;
 
             mousePos = Main.MouseWorld;
@@ -214,10 +215,6 @@ namespace OSTARsSWORDS.Content.Items.Swords.Pajche
 
                     if (chargeTimer < chargeTimerMax && !chargedSwing)
                         chargeTimer++;
-                    if (Main.zenithWorld)
-                    {
-                        GFBCharge++;
-                    }
 
                     Vector2 particleVel = (Owner.Center - particlePos).SafeNormalize(Vector2.UnitX) * -15;
                     particlePos += Main.rand.NextVector2Circular(20, 20);
@@ -251,20 +248,6 @@ namespace OSTARsSWORDS.Content.Items.Swords.Pajche
                     chargedSwing = true;
                     useAnim = storedUseAnim / 3;
                     chargeTimer++;
-
-                    if (Main.zenithWorld)
-                    {
-                        if (chargeTimerMax - (GFBMulti * GFBMulti * 2) <= 12 && !GFBFlashWarning)
-                        {
-                            SoundStyle w = new("OSTARsSWORDS/Sounds/AGAGA");
-                            SoundEngine.PlaySound(w with { Volume = 0.5f, Pitch = 1f }, Projectile.Center);
-                            Main.NewText("NIGGA!", Color.Orange);
-                            GFBFlashWarning = true;
-                        }
-                        GFBMulti += 0.5f;
-                        Projectile.scale += 0.03f;
-                        GFBCharge = 0;
-                    }
 
                     // Vanilla dust replacement for LineParticle burst
                     for (int i = 0; i < 20; i++)
@@ -321,7 +304,7 @@ namespace OSTARsSWORDS.Content.Items.Swords.Pajche
                     {
                         GFBMulti = 1;
                         GFBCharge = 0;
-                        Projectile.scale = 1;
+                        Projectile.scale = 1.5f;
                         Animation = 0;
                         doSwing = false;
                         chargeTimer = 0;
@@ -623,13 +606,11 @@ namespace OSTARsSWORDS.Content.Items.Swords.Pajche
             modifiers.HitDirectionOverride = Owner.direction;
 
             if (chargedSwing)
+            {
                 modifiers.SetCrit();
-
-            float critDamage = Math.Min(Owner.GetTotalCritChance(Projectile.DamageType) * 0.01f, 1f);
-            float minMult = 0.25f;
-            int hitsToMinMult = 10;
-            float damageMult = Utils.Remap(pierceReduction, 0, hitsToMinMult, 1, minMult, true);
-            modifiers.SourceDamage *= (chargedSwing ? (2.9f * GFBMulti + critDamage) : 1) * damageMult;
+                modifiers.FlatBonusDamage += target.lifeMax * 0.08f;
+            }
+            else modifiers.FlatBonusDamage += target.lifeMax * 0.04f;
         }
 
         #region CanHitNPC / CanDamage / ModifyDamageHitbox (inlined from base class)
@@ -658,7 +639,7 @@ namespace OSTARsSWORDS.Content.Items.Swords.Pajche
             if ((useAnim > 0 || DrawUnconditionally) && (Owner.ItemAnimationActive || IsRightClickHeld))
             {
                 Asset<Texture2D> tex = ModContent.Request<Texture2D>(Texture);
-                Asset<Texture2D> glowTex = ModContent.Request<Texture2D>("OSTARsSWORDS/ExtraTextures/UI/CrystalTextSparkle");
+                //Asset<Texture2D> glowTex = ModContent.Request<Texture2D>("OSTARsSWORDS/ExtraTextures/UI/CrystalTextSparkle");
                 Asset<Texture2D> swoosh = ModContent.Request<Texture2D>("OSTARsSWORDS/ExtraTextures/UI/CrystalTextGlow");
 
                 float r = FlipAsSword ? MathHelper.ToRadians(90) : 0f;
@@ -677,18 +658,6 @@ namespace OSTARsSWORDS.Content.Items.Swords.Pajche
                     Main.EntitySpriteDraw(swoosh.Value, Projectile.Center - Main.screenPosition + new Vector2(0, Owner.gfxOffY), null, Color.Lerp(Color.DarkRed, Color.OrangeRed, 0.25f) with { A = 0 } * fadeIn * 0.9f, (FinalRotation + MathHelper.ToRadians(45)) + MathHelper.ToRadians(swingCount % 2 == 0 ? -80 : 80) * -Owner.direction, swoosh.Size() * 0.5f, Projectile.scale * 2.35f / 4, swingCount % 2 == 0 ? SpriteEffects.FlipHorizontally : SpriteEffects.None);
 
                 Main.EntitySpriteDraw(tex.Value, generalDrawPos, tex.Frame(1, FrameCount, 0, Frame), lightColor, Projectile.rotation + RotationOffset + r, FlipAsSword ? new Vector2(tex.Width() - SpriteOrigin.X, SpriteOrigin.Y) : SpriteOrigin, Projectile.scale, sEffects);
-
-                if (chargeTimer > 0)
-                {
-                    for (int i = 0; i < 5; i++)
-                    {
-                        Color auraColor = (Color.Lerp(Color.DarkRed, Color.Red, Utils.GetLerpValue(0, 5, i)) * 0.4f * fadeIn) with { A = 0 };
-                        Vector2 rotationalDrawOffset = (MathHelper.TwoPi * i / 7f + Main.GlobalTimeWrappedHourly * 17f).ToRotationVector2();
-                        rotationalDrawOffset *= MathHelper.Lerp(3f, 5.25f, (float)Math.Cos(Main.GlobalTimeWrappedHourly * 13f) * 0.5f);
-                        Main.EntitySpriteDraw(glowTex.Value, Projectile.Center - Main.screenPosition + rotationalDrawOffset + new Vector2(0, Owner.gfxOffY), glowTex.Value.Frame(1, FrameCount, 0, Frame), auraColor, Projectile.rotation + RotationOffset + r, FlipAsSword ? new Vector2(tex.Width() - SpriteOrigin.X, SpriteOrigin.Y) : SpriteOrigin, Projectile.scale, sEffects);
-                    }
-                }
-                Main.EntitySpriteDraw(glowTex.Value, generalDrawPos, glowTex.Frame(1, FrameCount, 0, Frame), chargeTimer > 0 ? Color.Lerp(Color.White, Color.Gold, fadeIn) : Color.White, Projectile.rotation + RotationOffset + r, FlipAsSword ? new Vector2(glowTex.Width() - SpriteOrigin.X, SpriteOrigin.Y) : SpriteOrigin, Projectile.scale, sEffects);
             }
             return false;
         }
