@@ -24,8 +24,8 @@ public class FitzProjectile : ModProjectile
 		Projectile.DamageType = DamageClass.Melee;
 
 		Projectile.penetrate = 3;
-		Projectile.timeLeft = 180;
-		Projectile.tileCollide = true;
+		Projectile.timeLeft = 80;
+		Projectile.tileCollide = false;
 		Projectile.ignoreWater = true;
 
 		Projectile.usesLocalNPCImmunity = true;
@@ -39,12 +39,15 @@ public class FitzProjectile : ModProjectile
 		if (Projectile.direction == 0)
 			Projectile.rotation += 0.35f;
 
-		// Slight gravity pull
-		Projectile.velocity.Y += 0.04f;
+		//Vecor Math
+		Projectile.velocity *= 0.97f;
 
-		// Cycling hue for the glow effects — dark purple to green matching the sprite
-		float hue = (Main.GlobalTimeWrappedHourly * 0.6f + Projectile.identity * 0.1f) % 1f;
-		Color glowColor = Main.hslToRgb(hue, 0.85f, 0.55f);
+        // Fade out effect based on timeLeft
+        Projectile.Opacity = MathHelper.Clamp(Projectile.timeLeft / 60f, 0f, 1f);
+
+        // Cycling hue for the glow effects — dark purple to green matching the sprite
+        float hue = (Main.GlobalTimeWrappedHourly * 0.6f + Projectile.identity * 0.1f) % 1f;
+		Color glowColor = Main.hslToRgb(hue, 0.255f, 0.55f);
 
 		// Dynamic light
 		Lighting.AddLight(Projectile.Center, glowColor.ToVector3() * 0.8f);
@@ -64,22 +67,6 @@ public class FitzProjectile : ModProjectile
 			p.Spawn();
 		}
 
-		// Chromatic streaks for extra juice
-		if (Main.rand.NextBool(3))
-		{
-			ChromaticStreak s = new()
-			{
-				Position = Projectile.Center + Main.rand.NextVector2Circular(8f, 8f),
-				Velocity = -Projectile.velocity * 0.25f + Main.rand.NextVector2Circular(1.5f, 1.5f),
-				RotationSpeed = Main.rand.NextFloat(-0.06f, 0.06f),
-				Scale = Vector2.One * Main.rand.NextFloat(0.2f, 0.4f),
-				DrawColor = glowColor,
-				Lifetime = Main.rand.Next(8, 14),
-				Stretch = Main.rand.NextFloat(2.5f, 4.5f)
-			};
-			s.Spawn();
-		}
-
 		// Dust trail
 		if (Main.rand.NextBool(2))
 		{
@@ -91,9 +78,6 @@ public class FitzProjectile : ModProjectile
 
 	public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
 	{
-		// Explosive hit — screen shake and particle burst
-		ScreenShakeSystem.StartShake(4f, 0.6f, null, 0.6f);
-
 		float hue = (Main.GlobalTimeWrappedHourly * 0.6f + Projectile.identity * 0.1f) % 1f;
 		Color burstColor = Main.hslToRgb(hue, 0.9f, 0.6f);
 
@@ -130,7 +114,6 @@ public class FitzProjectile : ModProjectile
 
 		// On Fire debuff for explosive feel
 		target.AddBuff(BuffID.OnFire3, 240);
-		target.AddBuff(BuffID.ShadowFlame, 180);
 	}
 
 	public override void OnKill(int timeLeft)
@@ -169,8 +152,6 @@ public class FitzProjectile : ModProjectile
 		{
 			Projectile.NewProjectile(Projectile.GetSource_Death(), Projectile.Center, Vector2.Zero, ProjectileID.DD2ExplosiveTrapT3Explosion, Projectile.damage / 2, Projectile.knockBack, Projectile.owner);
 		}
-
-		ScreenShakeSystem.StartShake(5f, 0.8f, null, 0.5f);
 	}
 
 	public override bool PreDraw(ref Color lightColor)

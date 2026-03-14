@@ -21,6 +21,7 @@ namespace OSTARsSWORDS.Content.Items.Swords.Pajche
         public static readonly SoundStyle HitSoundBig = new("OSTARsSWORDS/Sounds/Item/HellkiteBigHit", 2);
         public static readonly SoundStyle ChargeSound = new("OSTARsSWORDS/Sounds/Item/HellkiteCharge");
         public static readonly SoundStyle FullChargeSound = new("OSTARsSWORDS/Sounds/Item/HellkiteFullCharge");
+        public static readonly SoundStyle Pluck = new("OSTARsSWORDS/Sounds/Item/PluckHigh");
         #endregion
 
         #region Base class fields (inlined from BaseCustomUseStyleProjectile)
@@ -330,7 +331,6 @@ namespace OSTARsSWORDS.Content.Items.Swords.Pajche
                         else
                         {
                             SoundEngine.PlaySound(SwingSound with { Volume = 0.9f, Pitch = 0.2f }, Projectile.Center);
-                            SoundEngine.PlaySound(SwingSoundBig with { Volume = 1f, Pitch = 0f }, Projectile.Center);
                         }
                         swingCount++;
                         playSwingSound = false;
@@ -548,6 +548,8 @@ namespace OSTARsSWORDS.Content.Items.Swords.Pajche
                 if (Projectile.numHits == 0)
                 {
                     SoundEngine.PlaySound(HitSoundBig with { Volume = 1f }, Projectile.Center);
+                    SoundEngine.PlaySound(SwingSoundBig with { Volume = 0.9f, Pitch = -.25f }, Projectile.Center);
+                    SoundEngine.PlaySound(Pluck with { Volume = 0.5f, Pitch = 0.25f }, Projectile.Center);
                     ScreenShakeSystem.StartShakeAtPoint(Projectile.Center, 8.5f * GFBMulti);
 
                     // Vanilla dust replacement for CustomPulse blast rings

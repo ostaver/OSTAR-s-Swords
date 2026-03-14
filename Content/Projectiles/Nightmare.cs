@@ -24,7 +24,7 @@ public class Nightmare : ModProjectile
 		Projectile.DamageType = DamageClass.Melee;
 		Projectile.tileCollide = false;
 		Projectile.ignoreWater = true;
-		Projectile.timeLeft = 60;
+		Projectile.timeLeft = 120;
 		Projectile.Opacity = 1.0f;
 	}
 

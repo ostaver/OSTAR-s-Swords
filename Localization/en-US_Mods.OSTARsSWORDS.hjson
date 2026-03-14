@@ -44,6 +44,7 @@ Projectiles: {
 	FitzProjectile.DisplayName: Fitz Projectile
 	HellkiteHoldout.DisplayName: Hellkite Holdout
 	PajcheWarAxeHoldout.DisplayName: Pajche War Axe Holdout
+	TestProjectile.DisplayName: Test Projectile
 }
 
 Items: {
@@ -1504,6 +1505,11 @@ Items: {
 	Fitz: {
 		Tooltip: ""
 		DisplayName: Fitz
+	}
+
+	TestSword: {
+		Tooltip: ""
+		DisplayName: Test Sword
 	}
 }
 

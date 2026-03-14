@@ -32,9 +32,6 @@ public class Fitz : ModItem
 
 	public override void OnHitNPC(Player player, NPC target, NPC.HitInfo hit, int damageDone)
 	{
-		// Heavy hit — screen shake
-		ScreenShakeSystem.StartShake(5f, 0.8f, null, 0.65f);
-
 		// Explosive glow burst on melee impact
 		float hue = (Main.GlobalTimeWrappedHourly * 0.5f) % 1f;
 		Color chroma = Main.hslToRgb(hue, 0.9f, 0.6f);
