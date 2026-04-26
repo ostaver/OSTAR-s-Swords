@@ -28,7 +28,7 @@ namespace OSTARsSWORDS.Content.Items.Armor
             player.setBonus = "Grants Titan potion effect, 1.2x melee damage, 10% increased melee critical chance, increases maximum life by 20";
             
             player.AddBuff(BuffID.Titan, 2);
-            player.GetDamage<MeleeDamageClass>() *= 0.2f;
+            player.GetDamage<MeleeDamageClass>() *= 1.2f;
             player.GetCritChance(DamageClass.Generic) += 10f;
             player.statLifeMax2 += 20;
         }

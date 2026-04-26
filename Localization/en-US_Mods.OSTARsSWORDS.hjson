@@ -44,7 +44,11 @@ Projectiles: {
 	FitzProjectile.DisplayName: Fitz Projectile
 	HellkiteHoldout.DisplayName: Hellkite Holdout
 	PajcheWarAxeHoldout.DisplayName: Pajche War Axe Holdout
+	TeskiHoldout.DisplayName: Teski Holdout
 	TestProjectile.DisplayName: Test Projectile
+	TeskiLightning.DisplayName: Teski Lightning
+	TeskiBoomerang.DisplayName: Teski Boomerang
+	FireballProjectile.DisplayName: Fireball Projectile
 }
 
 Items: {

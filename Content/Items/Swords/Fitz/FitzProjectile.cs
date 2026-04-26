@@ -35,12 +35,12 @@ public class FitzProjectile : ModProjectile
 	public override void AI()
 	{
 		// Constant spinning
-		Projectile.rotation += 0.35f * Projectile.direction;
+		Projectile.rotation += 0.4f * Projectile.direction;
 		if (Projectile.direction == 0)
-			Projectile.rotation += 0.35f;
+			Projectile.rotation += 0.4f;
 
 		//Vecor Math
-		Projectile.velocity *= 0.97f;
+		Projectile.velocity *= 0.98f;
 
         // Fade out effect based on timeLeft
         Projectile.Opacity = MathHelper.Clamp(Projectile.timeLeft / 60f, 0f, 1f);

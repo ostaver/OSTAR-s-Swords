@@ -1,4 +1,4 @@
-﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.Audio;
 using Terraria.DataStructures;
@@ -39,29 +39,8 @@ public class SwordOfTheUniverseV6 : ModItem
 	public override void AddRecipes()
 	{
 		Recipe recipe = CreateRecipe();
-		recipe.AddIngredient(Mod, "SwordOfTheUniverseV2", 1);
+		recipe.AddRecipeGroup("Any Sword Of The Universe", 1);
 		recipe.Register();
-		Recipe recipe2 = CreateRecipe();
-		recipe2.AddIngredient(Mod, "SwordOfTheUniverse", 1);
-		recipe2.Register();
-		Recipe recipe3 = CreateRecipe();
-		recipe3.AddIngredient(Mod, "SwordOfTheUniverseV9", 1);
-		recipe3.Register();
-		Recipe recipe4 = CreateRecipe();
-		recipe4.AddIngredient(Mod, "SwordOfTheUniverseV3", 1);
-		recipe4.Register();
-		Recipe recipe5 = CreateRecipe();
-		recipe5.AddIngredient(Mod, "SwordOfTheUniverseV4", 1);
-		recipe5.Register();
-		Recipe recipe6 = CreateRecipe();
-		recipe6.AddIngredient(Mod, "SwordOfTheUniverseV5", 1);
-		recipe6.Register();
-		Recipe recipe7 = CreateRecipe();
-		recipe7.AddIngredient(Mod, "SwordOfTheUniverseV7", 1);
-		recipe7.Register();
-		Recipe recipe8 = CreateRecipe();
-		recipe8.AddIngredient(Mod, "SwordOfTheUniverseV8", 1);
-		recipe8.Register();
 	}
 
 	public override void MeleeEffects(Player player, Rectangle hitbox)

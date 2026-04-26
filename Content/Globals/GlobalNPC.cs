@@ -3,13 +3,12 @@ using Terraria;
 using Terraria.ModLoader;
 using OSTARsSWORDS.Content.Items.Potions.SkoomaPotion;
 
-namespace OSTARsSWORDS.Content.GlobalNPCs
+namespace OSTARsSWORDS.Content.Globals
 {
     public class OstarsGlobalNPC : GlobalNPC
     {
         public bool eBlaze;
 
-        // Setting this to true is required to make sure every NPC has its own 'eBlaze' variable
         public override bool InstancePerEntity => true;
 
         public override void ResetEffects(NPC npc)
@@ -25,7 +24,7 @@ namespace OSTARsSWORDS.Content.GlobalNPCs
                 {
                     npc.lifeRegen = 0;
                 }
-                npc.lifeRegen -= 120000;
+                npc.lifeRegen -= 12000;
 
                 if (damage < 40000)
                 {

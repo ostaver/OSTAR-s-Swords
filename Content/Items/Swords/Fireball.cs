@@ -1,49 +1,44 @@
-﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework;
 using Terraria;
+using Terraria.Audio;
 using Terraria.ID;
 using Terraria.ModLoader;
+using OSTARsSWORDS.Content.Projectiles;
 
 namespace OSTARsSWORDS.Content.Items.Swords;
 
 public class Fireball : ModItem
 {
+	private static readonly SoundStyle FR_SWING = new SoundStyle("OSTARsSWORDS/Sounds/FR_SWING")
+	{
+		Volume = 0.5f,
+		Pitch = 0.3f
+	};
+
 	public override void SetDefaults()
 	{
 		Item.width = 54;
 		Item.height = 54;
 		Item.scale = 1.2f;
 		Item.rare = ItemRarityID.LightRed;
+
+		// Throw style — no melee swing
 		Item.useStyle = ItemUseStyleID.Swing;
-		Item.useTime = 26;
-		Item.useAnimation = 26;
+		Item.useTime = 28;
+		Item.useAnimation = 28;
+		Item.noMelee = true;       // The item itself does not deal melee damage
+		Item.noUseGraphic = true;  // Don't draw the item sprite when used
+
 		Item.damage = 31;
 		Item.knockBack = 5f;
-		Item.shoot = ProjectileID.BallofFire;
-		Item.shootSpeed = 10f;
-		Item.UseSound = SoundID.Item20;
+		Item.DamageType = DamageClass.Melee;
+
+		Item.shoot = ModContent.ProjectileType<FireballProjectile>();
+		Item.shootSpeed = 28f;     // Fast in a straight line
+		Item.UseSound = FR_SWING;
+
 		Item.value = Item.sellPrice(0, 3, 0, 0);
 		Item.autoReuse = true;
-		Item.DamageType = DamageClass.Melee;
 		Item.ResearchUnlockCount = 1;
-	}
-
-	public override void MeleeEffects(Player player, Rectangle hitbox)
-	{
-		if (Main.rand.Next(2) == 0)
-		{
-			int dust = Dust.NewDust(new Vector2((float)hitbox.X, (float)hitbox.Y), hitbox.Width, hitbox.Height, DustID.Torch, 0f, 0f, 100, default(Color), 2f);
-			Main.dust[dust].noGravity = true;
-			Main.dust[dust].velocity.X += (float)player.direction * 0f;
-			Main.dust[dust].velocity.Y += 0f;
-			dust = Dust.NewDust(new Vector2((float)hitbox.X, (float)hitbox.Y), hitbox.Width, hitbox.Height, DustID.Torch, 0f, 0f, 100, default(Color), 2f);
-			Main.dust[dust].noGravity = true;
-			Main.dust[dust].velocity.X += (float)player.direction * 0f;
-			Main.dust[dust].velocity.Y += 0f;
-		}
-	}
-
-	public override void OnHitNPC(Player player, NPC target, NPC.HitInfo hit, int damageDone)
-	{
-		target.AddBuff(BuffID.OnFire, 360, false);
 	}
 }

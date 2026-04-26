@@ -1,5 +1,5 @@
 using Microsoft.Xna.Framework;
-using Luminance.Core.Graphics;
+using OSTARsSWORDS.Rarities;
 using OSTARsSWORDS.Content.Particles;
 using Terraria;
 using Terraria.DataStructures;
@@ -15,7 +15,7 @@ public class Fitz : ModItem
 		Item.width = 70;
 		Item.height = 90;
 		Item.scale = 1.2f;
-		Item.rare = ItemRarityID.Red;
+		Item.rare = ModContent.RarityType<AbyssalBlue>();
 		Item.useStyle = ItemUseStyleID.Swing;
 		Item.useTime = 22;
 		Item.useAnimation = 22;
@@ -54,6 +54,10 @@ public class Fitz : ModItem
 		// Debuffs for the explosive / fiery feel
 		target.AddBuff(BuffID.OnFire3, 300);
 		target.AddBuff(BuffID.ShadowFlame, 240);
+		if (!target.boss)
+		{ 
+			target.StrikeInstantKill();
+		}	
 	}
 
 	public override void MeleeEffects(Player player, Rectangle hitbox)

@@ -31,7 +31,7 @@ namespace OSTARsSWORDS.Content.Items.Armor
             recipe.AddIngredient(ItemID.SoulofMight, 15);
             recipe.AddIngredient(ItemID.SoulofSight, 15);
             recipe.AddIngredient(ItemID.SoulofFright, 15);
-            recipe.AddIngredient(ItemID.WrathPotion, 15);
+            recipe.AddIngredient(ItemID.SwiftnessPotion, 15);
             recipe.AddIngredient(ItemID.HallowedGreaves, 1);
             recipe.AddIngredient(ItemID.HallowedBar, 16);
             recipe.AddTile(TileID.MythrilAnvil);

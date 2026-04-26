@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using OSTARsSWORDS.Rarities;
 using Terraria;
 using Terraria.Audio;
 using Terraria.DataStructures;
@@ -31,7 +32,7 @@ namespace OSTARsSWORDS.Content.Items.Swords.Pajche
             Item.knockBack = 13f;
             Item.autoReuse = true;
             Item.value = Item.buyPrice(0, 45, 0, 0);
-            Item.rare = ItemRarityID.Lime;
+            Item.rare = ModContent.RarityType<CalamityRed>();
 
             Item.channel = true;
             Item.shoot = Mod.Find<ModProjectile>("PajcheWarAxeHoldout").Type;
@@ -62,13 +63,6 @@ namespace OSTARsSWORDS.Content.Items.Swords.Pajche
             else
                 Projectile.NewProjectile(source, player.MountedCenter, Vector2.Zero, type, damage, knockback, player.whoAmI, 0, 0, 0);
             return false;
-        }
-        public override void PostDrawInWorld(SpriteBatch spriteBatch, Color lightColor, Color alphaColor, float rotation, float scale, int whoAmI)
-        {
-            Texture2D glowmaskTexture = ModContent.Request<Texture2D>("OSTARsSWORDS/ExtraTextures/UI/CrystalTextSparkle").Value;
-            Vector2 origin = new Vector2(glowmaskTexture.Width / 2f, glowmaskTexture.Height / 2f);
-            Color color = Color.White;
-            spriteBatch.Draw(glowmaskTexture, Item.Center - Main.screenPosition, null, color, rotation, origin, 1f, SpriteEffects.None, 0f);
         }
     }
 }
