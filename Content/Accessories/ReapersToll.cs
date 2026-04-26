@@ -1,7 +1,7 @@
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
-using OSTARsSWORDS.Content.GlobalNPCs;
+using OSTARsSWORDS.Content.Globals;
 
 namespace OSTARsSWORDS.Content.Accessories;
 

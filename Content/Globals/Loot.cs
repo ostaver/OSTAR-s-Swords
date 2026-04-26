@@ -3,13 +3,14 @@ using OSTARsSWORDS.Content.Items;
 using OSTARsSWORDS.Content.Items.Materials;
 using OSTARsSWORDS.Content.Items.Potions.SkoomaPotion;
 using OSTARsSWORDS.Content.Items.Swords;
+using OSTARsSWORDS.Content.Items.Swords.Pajche;
 using Terraria;
 using Terraria.Audio;
 using Terraria.GameContent.ItemDropRules;
 using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace OSTARsSWORDS.Content.GlobalNPCs;
+namespace OSTARsSWORDS.Content.Globals;
 
 public class Loot : GlobalNPC
 {
@@ -275,15 +276,21 @@ public class Loot : GlobalNPC
             npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<StarMaelstorm>(), chanceDenominator: 100, minimumDropped: 1, maximumDropped: 1));
         }
 
-        if (npc.type == NPCID.DungeonGuardian) //Halo of Horrors
+        if (npc.type == NPCID.DungeonGuardian && Main.expertMode) //Halo of Horrors
         {
             npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<HaloOfHorrors>(), chanceDenominator: 1, minimumDropped: 1, maximumDropped: 1));
         }
 
-        if(npc.type == NPCID.HallowBoss) //Sword of the Divine, Empress of Light
+        if(npc.type == NPCID.HallowBoss && Main.expertMode) //Sword of the Divine, Empress of Light
         {
             npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<SwordOfTheDivine>(), chanceDenominator: 1, minimumDropped: 1, maximumDropped: 1));
             npc.DeathSound = new SoundStyle("OSTARsSWORDS/Sounds/EmpressFinish") { Volume = 1.2f };
+        }
+
+        if(npc.type == NPCID.Paladin && Main.expertMode) //Pajche War Axe, Paladin
+        {
+            npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<PajcheWarAxe>(), chanceDenominator: 5, minimumDropped: 1, maximumDropped: 1));
+            npc.DeathSound = new SoundStyle("OSTARsSWORDS/Sounds/AGAGA") { Volume = 1.2f };
         }
 
         //Biome Mimic Drops
@@ -304,5 +311,14 @@ public class Loot : GlobalNPC
     {
         shop[nextSlot] = ModContent.ItemType<SkoomaPotion>();
         nextSlot++;
+    }
+
+    public override void ModifyShop(NPCShop shop)
+    {
+        if (shop.NpcType == NPCID.Merchant)
+        {
+            shop.Add(ItemID.Burger, Condition.Hardmode);
+            shop.Add(ModContent.ItemType<DamascusOre>(), Condition.Hardmode);
+        }
     }
 }

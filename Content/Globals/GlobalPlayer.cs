@@ -1,10 +1,10 @@
-﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace OSTARsSWORDS.Content.GlobalNPCs
+namespace OSTARsSWORDS.Content.Globals
 {
     public class GlobalPlayer : ModPlayer
     {
@@ -27,7 +27,12 @@ namespace OSTARsSWORDS.Content.GlobalNPCs
                 modifiers.ModifyHitInfo += (ref NPC.HitInfo hitInfo) => {
                     if (hitInfo.Crit)
                     {
-                        hitInfo.Damage += (int)(hitInfo.Damage * Main.rand.NextFloat(0.5f, 2.0f));
+                        float multiplier = Main.rand.NextFloat(0.5f, 2.0f);
+                        hitInfo.Damage = (int)(hitInfo.Damage * multiplier);
+                        Rectangle textPos = target.getRect();
+                        textPos.X += Main.rand.Next(-30, 30);
+                        textPos.Y += Main.rand.Next(-30, 30);
+                        CombatText.NewText(textPos, Color.Red, (multiplier).ToString("0.0") + "x", false);
                     }
                 };
             }

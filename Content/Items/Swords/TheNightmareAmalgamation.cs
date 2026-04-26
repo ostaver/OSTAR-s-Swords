@@ -4,10 +4,10 @@ using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
 using OSTARsSWORDS.Content.Projectiles;
-using OSTARsSWORDS.Content.GlobalNPCs;
 using System.Collections.Generic;
 using Luminance.Core.Graphics;
 using Terraria.Audio;
+using OSTARsSWORDS.Content.Globals;
 
 namespace OSTARsSWORDS.Content.Items.Swords;
 

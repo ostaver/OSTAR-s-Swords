@@ -1,4 +1,4 @@
-using OSTARsSWORDS.Content.GlobalNPCs;
+using OSTARsSWORDS.Content.Globals;
 using Terraria;
 using Terraria.ModLoader;
 
